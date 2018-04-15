@@ -11,6 +11,20 @@
     <p>child tells me: {{childWords}}</p>
     <component-a msgfromfather='you die!'
     v-on:child-tell-me-something='listenToMyBoy'></component-a>
+    <div>
+      <button v-on:click="show = !show">Toggle</button>
+      <div class="ab">
+        <transition name="fade" mode="out-in">
+          <p v-if="show" key="1">i am show</p>
+          <p v-else key="2">not in show</p>
+        </transition>
+        <transition name="my-trans">
+          <p v-show="show">i am show</p>
+        </transition>
+      </div>
+    </div>
+    <p v-color="'red'">hello world</p>
+    <input type="text" v-focus>
   </div>
 </template>
 
@@ -25,7 +39,18 @@ export default {
       title: 'this is a todo list',
       items: Store.fetch(),
       newItem: '',
-      childWords: ''
+      childWords: '',
+      show: true
+    }
+  },
+  directives: {
+    color: function (el, binding) {
+      el.style.color = binding.value;
+    },
+    focus: {
+      inserted (el, binding) {
+        el.focus();
+      }
     }
   },
   components: { ComponentA },
@@ -62,6 +87,25 @@ export default {
 </script>
 
 <style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s ease-out;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+}
+
+.my-trans-enter-active, .my-trans-leave-active {
+  transition: all .5s ease-out;
+}
+.my-trans-enter {
+  transform: translateY(-500px);
+  opacity: 0;
+}
+.my-trans-leave-active {
+  transform: translateY(500px);
+  opacity: 0;
+}
+
 .finished {
   text-decoration: underline;
 }

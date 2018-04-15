@@ -9,7 +9,18 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+  // router,
+  render: function (h) {
+    return h(App);
+  },
+  // components: { App },
+  directives: {
+    color: function (el, binding) {
+      el.style.color = binding.value;
+    },
+    custom: function () {
+
+    }
+  }
+  // template: '<App/>'
 })

@@ -22,8 +22,8 @@ export default {
   methods: {
     onClickMe: function () {
       // console.log(this.msgfromfather);
-      // this.$emit('child-tell-me-something', this.msg);
-      this.$dispatch('child-tell-me-something', this.msg);
+      this.$emit('child-tell-me-something', this.msg);
+      // this.$dispatch('child-tell-me-something', this.msg);
     }
   }
 }

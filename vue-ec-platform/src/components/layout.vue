@@ -1,8 +1,10 @@
 <template>
-<div>
+<div @click="resetComponent">
   <div class="app-head">
     <div class="app-head-inner">
-      <img src="../assets/logo.png">
+      <router-link :to="{path: '/'}">
+        <img src="../assets/logo.png">
+      </router-link>
       <div class="head-nav">
         <ul class="nav-list">
           <li>{{username}}</li>
@@ -38,7 +40,8 @@
 </template>
 
 <script>
-import Dialog from './dialog'
+import { eventBus } from '../eventBus'
+import Dialog from './base/dialog'
 import LogForm from './logForm'
 import RegForm from './regForm'
 export default {
@@ -75,6 +78,9 @@ export default {
     },
     quit () {
       this.username = '';
+    },
+    resetComponent () {
+      eventBus.$emit('reset-component')
     }
   }
 }

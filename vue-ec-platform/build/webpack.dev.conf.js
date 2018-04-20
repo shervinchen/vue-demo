@@ -37,6 +37,30 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           data: appData.login
         })
       })
+      app.post('/api/getPrice', (req, res) => {
+        res.json({
+          errno: 0,
+          data: appData.getPrice
+        })
+      })
+      app.post('/api/createOrder', (req, res) => {
+        res.json({
+          errno: 0,
+          data: appData.getOrderList.list
+        })
+      })
+      app.post('/api/checkOrder', (req, res) => {
+        res.json({
+          errno: 0,
+          data: true
+        })
+      })
+      app.post('/api/getOrderList', (req, res) => {
+        res.json({
+          errno: 0,
+          data: appData.getOrderList
+        })
+      })
     },
     clientLogLevel: 'warning',
     historyApiFallback: {

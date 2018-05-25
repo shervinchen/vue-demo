@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue中的列表渲染</title>
+    <script src="./vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- <template v-for="(item, index) of list">
+        <div>
+          {{item.text}} {{index}}
+        </div>
+        <span>
+          {{item.text}}
+        </span>
+      </template> -->
+      <!-- <div v-for="(item,key,index) of userInfo">{{item}} {{key}} {{index}}</div> -->
+      <div v-for="item of userInfo">{{item}}</div>
+    </div>
+    <script type="text/javascript">
+      // push pop shift unshift splice sort reverse
+      var vm = new Vue({
+        el: '#root',
+        data: {
+          list: [
+            {
+              id:'1',
+              text: 'hello'
+            },
+            {
+              id:'2',
+              text: 'Dell'
+            },
+            {
+              id:'3',
+              text: 'Lee'
+            }
+          ],
+          // userInfo: {
+          //   name: 'Dell',
+          //   age: 28,
+          //   gender: 'male',
+          //   salary: 'secret'
+          // }
+          // Vue.set(vm.userInfo, 'address', 'beijing')
+          // vm.$set(vm.userInfo, 'address', 'beijing')
+          userInfo: [1,2,3,4]
+          // Vue.set(vm.userInfo, 1, 5)
+          // vm.$set(vm.userInfo, 1, 5)
+        },
+        methods: {
+
+        }
+      })
+    </script>
+  </body>
+</html>

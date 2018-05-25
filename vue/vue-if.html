@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue中的条件渲染</title>
+    <script src="./vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- <div v-if="show" data-test="v-if">{{message}}</div>
+      <div v-show="show" data-test="v-show">{{message}}</div> -->
+
+      <!-- <div v-if="show">{{message}}</div>
+      <div v-else>Bye World</div> -->
+
+      <!-- <div v-if="show === 'a'">This is A</div>
+      <div v-else-if="show === 'b'">This is B</div>
+      <div v-else>This is others</div> -->
+
+      <div v-if="show">
+        用户名：<input type="text" key="username">
+      </div>
+      <div v-else>
+        邮箱名：<input type="text" key="password">
+      </div>
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#root',
+        data: {
+          show: false,
+          // message: 'Hello World'
+          // show: 'a'
+        },
+        methods: {
+
+        }
+      })
+    </script>
+  </body>
+</html>

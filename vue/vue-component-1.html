@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>vue组件使用中的细节点</title>
+    <script src="./vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="root">
+      <table>
+        <tbody>
+          <!-- h5规范：tbody里面必须是tr标签 所以用is属性来绑定组件 -->
+          <tr is="row"></tr>
+          <tr is="row"></tr>
+          <tr is="row"></tr>
+        </tbody>
+        <!-- <ul>
+          <li is="row"></li>
+        </ui> -->
+        <!-- <select class="" name="">
+          <option is="row" value=""></option>
+        </select> -->
+      </table>
+      <!-- <div ref="hello" @click="handleClick">hello world</div> -->
+      <counter ref="one" @change="handleChange"></counter>
+      <counter ref="two" @change="handleChange"></counter>
+      <div>{{total}}</div>
+    </div>
+    <script type="text/javascript">
+      Vue.component('row', {
+        // 子组件里的data必须是个函数，因为子组件可能被调用多次，避免重复引用
+        data () {
+          return {
+            content: 'this is a row'
+          }
+        },
+        template: '<tr><td>{{content}}</td></tr>'
+      })
+      Vue.component('counter', {
+        template: '<div @click="handleClick">{{number}}</div>',
+        data () {
+          return {
+            number: 0
+          }
+        },
+        methods: {
+          handleClick () {
+            this.number++
+            this.$emit('change')
+          }
+        }
+      })
+      var vm = new Vue({
+        el: '#root',
+        data: {
+          total: 0
+        },
+        methods: {
+          // handleClick () {
+          //   // 通过ref引用获取对应的dom节点
+          //   console.log(this.$refs.hello.innerHTML)
+          // }
+          handleChange () {
+            // 组件的ref 获取到的就是组件的引用
+            this.total = this.$refs.one.number + this.$refs.two.number
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

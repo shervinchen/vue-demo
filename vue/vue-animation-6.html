@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue中的列表过渡</title>
+    <script src="./vue.js" charset="utf-8"></script>
+    <style media="screen">
+      .v-enter, .v-leave-to {
+        opacity: 0;
+      }
+      .v-enter-active, .v-leave-active {
+        transition: opacity 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <transition-group>
+        <div v-for="(item, index) of list" :key="item.id">{{item.title}}</div>
+      </transition-group>
+      <button @click="handleBtnClick">Add</button>
+    </div>
+    <script type="text/javascript">
+      var count = 0;
+
+      var vm = new Vue({
+        el: '#root',
+        data: {
+          list: [
+
+          ]
+        },
+        methods: {
+          handleBtnClick () {
+            this.list.push({
+              id: count++,
+              title: 'hello world'
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

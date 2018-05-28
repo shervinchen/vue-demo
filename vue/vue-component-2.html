@@ -2,17 +2,30 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>父子组件传值/title>
+    <title>父子组件传值</title>
     <script src="./vue.js" charset="utf-8"></script>
   </head>
   <body>
     <div id="root">
-      <counter></counter>
-      <counter></counter>
+      <counter :count="0" @inc="handleIncrease"></counter>
+      <counter :count="1" @inc="handleIncrease"></counter>
+      <div>{{total}}</div>
     </div>
     <script type="text/javascript">
       var counter = {
-        template: '<div>0</div>'
+        props: ['count'],
+        data () {
+          return {
+            number: this.count
+          }
+        },
+        template: '<div @click="handleClick">{{number}}</div>',
+        methods: {
+          handleClick () {
+            this.number++
+            this.$emit('inc', 1)
+          }
+        }
       }
       var vm = new Vue({
         el: '#root',
@@ -20,10 +33,12 @@
           counter
         },
         data: {
-
+          total: 1
         },
         methods: {
-
+          handleIncrease (step) {
+            this.total += step;
+          }
         }
       })
     </script>

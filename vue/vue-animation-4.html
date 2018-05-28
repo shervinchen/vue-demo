@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue中的JS动画与velocity.js</title>
+    <script src="./vue.js" charset="utf-8"></script>
+    <script src="./velocity.min.js" charset="utf-8"></script>
+    <style media="screen">
+
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <transition name="fade"
+      @before-enter="handleBeforeEnter"
+      @enter="handleEnter"
+      @after-enter="handleAfterEnter">
+        <div v-if="show">
+          hello world
+        </div>
+      </transition>
+      <button @click="handleClick" type="button" name="button">切换</button>
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#root',
+        data: {
+          show: true
+        },
+        methods: {
+          handleClick () {
+            this.show = !this.show
+          },
+          handleBeforeEnter (el) {
+            // el.style.color = 'red'
+            el.style.opacity = 0;
+          },
+          handleEnter (el, done) {
+            // setTimeout(() => {
+            //   el.style.color = 'green'
+            // }, 2000)
+            // setTimeout(() => {
+            //   done()
+            // }, 4000)
+            Velocity(el, {opacity: 1}, {duration: 1000, complete: done})
+          },
+          handleAfterEnter (el) {
+            // el.style.color = 'black'
+            console.log('动画结束')
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

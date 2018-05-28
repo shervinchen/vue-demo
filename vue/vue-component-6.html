@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue中的插槽（slot）</title>
+    <script src="./vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="root">
+      <child>
+        <!-- <p>Dell</p> -->
+      </child>
+      <body-content>
+        <div class="header" slot="header">header</div>
+        <div class="footer" slot="footer">footer</div>
+      </body-content>
+    </div>
+    <script type="text/javascript">
+      Vue.component('child', {
+        template: `<div>
+                    <p>hello</p>
+                    <slot>默认内容</slot>
+                  </div>`
+      })
+      Vue.component('body-content', {
+        template: `<div>
+                    <slot name="header">default header</slot>
+                    <div class="content">content</div>
+                    <slot name="footer"></slot>
+                  </div>`
+      })
+      var vm = new Vue({
+        el: '#root',
+        data: {
+
+        },
+        methods: {
+
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -9,7 +9,9 @@
     </div>
     <router-link :to="{ name: 'City', params: {} }">
       <div class="header-right">
-        {{this.$store.state.city}}
+        <!-- {{this.$store.state.city}} -->
+        <!-- {{this.doubleCity}} -->
+        {{this.city}}
         <span class="iconfont arrow-icon">&#xe600;</span>
       </div>
     </router-link>
@@ -17,8 +19,13 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  computed: {
+    ...mapState(['city']),
+    ...mapGetters(['doubleCity'])
+  }
 }
 </script>
 
@@ -48,7 +55,8 @@ export default {
       border-radius: .1rem
       color: #ccc
     .header-right
-      width: 1.24rem
+      min-width: 1.04rem
+      padding: 0 .1rem
       float: right
       text-align: center
       color: #fff

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue</title>
+    <script src="./vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div @mouseover="over" @mouseleave="out">{{number}}</div>
+    </div>
+    <script type="text/javascript">
+      var vm = new Vue({
+        el: '#root',
+        data: {
+          number: 0,
+          timer: null
+        },
+        methods: {
+          over () {
+            if (this.timer) {
+              clearInterval(this.timer)
+            }
+          },
+          out () {
+            this.set()
+          },
+          set () {
+            this.timer = setInterval(() => {
+              this.number++;
+            }, 1000)
+          }
+        },
+        mounted () {
+          this.set()
+        }
+      })
+    </script>
+  </body>
+</html>

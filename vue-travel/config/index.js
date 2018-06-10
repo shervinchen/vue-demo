@@ -13,6 +13,8 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://localhost:8080',
+        // 前后端联调时只用写后台的地址
+        // target: 'http://localhost:80',
         pathRewrite: {
           "^/api": '/static/mock'
         }
@@ -57,6 +59,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
+    // 假如打包的项目要运行在一个project的目录下  就改成'/project'
     assetsPublicPath: '/',
 
     /**

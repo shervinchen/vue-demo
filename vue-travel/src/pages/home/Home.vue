@@ -22,6 +22,8 @@ export default {
   name: 'Home',
   components: {
     HomeHeader,
+    // app.js超过1mb后才使用异步组件加载
+    // HomeHeader: () => import('./components/Header'),
     HomeSwiper,
     HomeIcons,
     HomeRecommend,

@@ -18,6 +18,9 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
+import Vuetree from 'vue-simple-tree'
+Vue.use(Vuetree)
+
 let router = new VueRouter({
   mode: 'history',
   routes: [

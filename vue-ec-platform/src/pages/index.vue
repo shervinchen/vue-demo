@@ -38,6 +38,11 @@
         </div>
       </div>
     </div>
+    <vue-tree
+      v-model="checkedIds"
+      :tree-data="treeData"
+      :options="options"
+    />
   </div>
 </template>
 
@@ -162,7 +167,33 @@ export default {
             }
           ]
         }
-      }
+      },
+      checkedIds: [],
+      treeData: [{
+        id: "1",
+        label: "Root",
+        children: [
+          {
+            id: "2",
+            label: "Node2"
+          },
+          {
+            id: "3",
+            label: "Node3"
+          },
+          {
+            id: "4",
+            label: "Node4",
+            children: [
+              {
+                id: "5",
+                label: "Node5"
+              }
+            ]
+          }
+        ]
+      }],
+      options: {}
     }
   }
 }

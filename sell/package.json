@@ -1,5 +1,5 @@
 {
-  "name": "hello-world",
+  "name": "sell",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@antv/g6": "^2.1.4-beta.3",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

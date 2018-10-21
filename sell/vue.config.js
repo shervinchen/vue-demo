@@ -1,5 +1,14 @@
 const path = require('path');
 
+const appData = require('./mock/data.json');
+const seller = appData.seller;
+const goods = appData.goods;
+const ratings = appData.ratings;
+
+function resolve(dir) {
+  return path.join(__dirname, dir)
+}
+
 module.exports = {
   // 基本路径（构建好的文件输出到哪里）
   baseUrl: '/',
@@ -17,7 +26,12 @@ module.exports = {
   runtimeCompiler: true,
   // webpack配置
   // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-  chainWebpack: () => {},
+  chainWebpack: (config) => {
+    config.resolve.alias
+      .set('@', resolve('src'))
+      .set('assets', resolve('src/assets'))
+      .set('components', resolve('src/components'))
+  },
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
@@ -26,18 +40,15 @@ module.exports = {
       // 为开发环境修改配置...
       config.mode = 'development';
     }
-    Object.assign(config, {
-      // 开发生产共同配置
-      resolve: {
-        alias: {
-          // '@': path.resolve(__dirname, './src'),
-          // '@c': path.resolve(__dirname, './src/components')
-          'assets': '@/assets',
-          'components': '@/components',
-          'views': '@/views'
-        }
-      }
-    });
+    // Object.assign(config, {
+    //   // 开发生产共同配置
+    //   resolve: {
+    //     alias: {
+    //       '@': path.resolve(__dirname, './src'),
+    //       '@c': path.resolve(__dirname, './src/components')
+    //     }
+    //   }
+    // });
   },
   // vue-loader 配置项  https://vue-loader.vuejs.org/en/options.html
 
@@ -94,8 +105,27 @@ module.exports = {
     //   console.log(res)
     // })
     // 设置代理
-    before: app => {}
-  }
+    before: app => {
+      app.get('/api/seller', (req, res, next) => {
+        res.json({
+          errno: 0,
+          data: seller
+        });
+      })
+      app.get('/api/goods', (req, res, next) => {
+        res.json({
+          errno: 0,
+          data: goods
+        });
+      })
+      app.get('/api/ratings', (req, res, next) => {
+        res.json({
+          errno: 0,
+          data: ratings
+        });
+      })
+    }
+  },
   // 第三方插件配置
   pluginOptions: {}
 }

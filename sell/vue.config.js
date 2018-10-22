@@ -1,5 +1,10 @@
 const path = require('path');
 
+// 测试接口域名
+const DEV_API_HOST = 'http://localhost:8080'
+// 正式接口域名
+const PROD_API_HOST = 'https://api.csdoker.com'
+
 const appData = require('./mock/data.json');
 const seller = appData.seller;
 const goods = appData.goods;
@@ -31,6 +36,9 @@ module.exports = {
       .set('@', resolve('src'))
       .set('assets', resolve('src/assets'))
       .set('components', resolve('src/components'))
+      .set('views', resolve('src/views'))
+      .set('common', resolve('src/common'))
+      .set('static', resolve('static'))
   },
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production') {
@@ -89,18 +97,19 @@ module.exports = {
     port: 8080,
     https: false,
     hotOnly: false,
-    // proxy: {
-    //     // 设置代理
-    //     // proxy all requests starting with /api to jsonplaceholder
-    //     '/api': {
-    //         target: 'http://xxx/device', // 对应自己的接口
-    //         changeOrigin: true,
-    //         ws: true,
-    //         pathRewrite: {
-    //             '^/api': ''
-    //         }
-    //     }
-    // },
+    proxy: {
+      // 设置代理
+      // proxy all requests starting with /api to jsonplaceholder
+      '/api': {
+        target: process.env.NODE_ENV === 'production' ?
+          PROD_API_HOST : DEV_API_HOST,
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    },
     // axios.get('/api/getDataPoint').then(res => {
     //   console.log(res)
     // })

@@ -1,14 +1,14 @@
 <template lang="html">
-  <div class="header">
-    我是header
+  <div class="">
+    I am seller
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Seller'
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped="">
 </style>

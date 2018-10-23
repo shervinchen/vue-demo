@@ -101,8 +101,7 @@ module.exports = {
       // 设置代理
       // proxy all requests starting with /api to jsonplaceholder
       '/api': {
-        target: process.env.NODE_ENV === 'production' ?
-          PROD_API_HOST : DEV_API_HOST,
+        target: PROD_API_HOST,
         changeOrigin: true,
         ws: true,
         pathRewrite: {

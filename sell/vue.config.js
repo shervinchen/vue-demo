@@ -114,19 +114,20 @@ module.exports = {
     // })
     // 设置代理
     before: app => {
-      app.get('/api/seller', (req, res, next) => {
+      // 本地mock数据
+      app.get('/seller', (req, res, next) => {
         res.json({
           errno: 0,
           data: seller
         });
       })
-      app.get('/api/goods', (req, res, next) => {
+      app.get('/goods', (req, res, next) => {
         res.json({
           errno: 0,
           data: goods
         });
       })
-      app.get('/api/ratings', (req, res, next) => {
+      app.get('/ratings', (req, res, next) => {
         res.json({
           errno: 0,
           data: ratings

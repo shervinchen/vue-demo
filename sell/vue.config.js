@@ -1,22 +1,22 @@
-const path = require('path');
+const path = require('path')
 
 // 测试接口域名
-const DEV_API_HOST = 'http://localhost:8080'
+// const DEV_API_HOST = 'http://localhost:8080'
 // 正式接口域名
 const PROD_API_HOST = 'https://api.csdoker.com'
 
-const appData = require('./mock/data.json');
-const seller = appData.seller;
-const goods = appData.goods;
-const ratings = appData.ratings;
+const appData = require('./mock/data.json')
+const seller = appData.seller
+const goods = appData.goods
+const ratings = appData.ratings
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
 module.exports = {
   // 基本路径（构建好的文件输出到哪里）
-  baseUrl: '/',
+  baseUrl: './',
   // baseUrl: process.env.NODE_ENV === 'production'
   //   ? '//your_url'
   //   : '/',
@@ -38,15 +38,22 @@ module.exports = {
       .set('components', resolve('src/components'))
       .set('views', resolve('src/views'))
       .set('common', resolve('src/common'))
+      .set('utils', resolve('src/utils'))
+      .set('api', resolve('src/api'))
       .set('static', resolve('static'))
+    // 这里是对环境的配置，不同环境对应不同的BASE_URL，以便axios的请求地址不同
+    config.plugin('define').tap(args => {
+      args[0]['process.env'].BASE_URL = JSON.stringify(process.env.BASE_URL)
+      return args
+    })
   },
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
-      config.mode = 'production';
+      config.mode = 'production'
     } else {
       // 为开发环境修改配置...
-      config.mode = 'development';
+      config.mode = 'development'
     }
     // Object.assign(config, {
     //   // 开发生产共同配置
@@ -92,23 +99,24 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     // open: true,
-    open: 'darwin' === process.platform,
+    open: process.platform === 'darwin',
     host: '0.0.0.0',
-    port: 8080,
+    port: 8082,
     https: false,
     hotOnly: false,
-    proxy: {
-      // 设置代理
-      // proxy all requests starting with /api to jsonplaceholder
-      '/api': {
-        target: PROD_API_HOST,
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    },
+    proxy: PROD_API_HOST,
+    // proxy: {
+    //   // 设置代理
+    //   // proxy all requests starting with /api to jsonplaceholder
+    //   '/api': {
+    //     target: PROD_API_HOST,
+    //     changeOrigin: true,
+    //     ws: true,
+    //     pathRewrite: {
+    //       '^/api': ''
+    //     }
+    //   }
+    // },
     // axios.get('/api/getDataPoint').then(res => {
     //   console.log(res)
     // })
@@ -119,19 +127,19 @@ module.exports = {
         res.json({
           errno: 0,
           data: seller
-        });
+        })
       })
       app.get('/goods', (req, res, next) => {
         res.json({
           errno: 0,
           data: goods
-        });
+        })
       })
       app.get('/ratings', (req, res, next) => {
         res.json({
           errno: 0,
           data: ratings
-        });
+        })
       })
     }
   },

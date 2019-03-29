@@ -22,9 +22,7 @@ import vHeader from 'components/header/Header'
 export default {
   name: 'App',
   data () {
-    return {
-      
-    }
+    return {}
   },
   components: {
     vHeader

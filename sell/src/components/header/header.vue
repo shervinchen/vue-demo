@@ -6,7 +6,13 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+  mounted () {
+    this.$api.article.test().then(res => {
+      // 执行某些操作
+      // console.log(res)
+    })
+  }
 }
 </script>
 

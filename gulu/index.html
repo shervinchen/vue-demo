@@ -29,42 +29,70 @@
             --border-color-hover: #666;
         }
 
-        #app {
-            margin: 20px;
-        }
-
         body {
             font-size: var(--font-size)
-        }
-    </style>
-    <style>
-        .box {
-            margin: 20px;
         }
     </style>
 </head>
 
 <body>
+    <style>
+        .demo {
+            border: 1px solid #666;
+            min-height: 100px;
+        }
+        .sider {
+            background: #333;
+            width: 150px;
+        }
+        .sider.slide-enter, .sider.slide-leave-to {
+            margin-left: -150px;
+        }
+        .header {
+            background: #999;
+            height: 100px;
+        }
+        .footer {
+            background: #ccc;
+            height: 50px;
+        }
+    </style>
     <div id="app">
-        <div style="border: 1px solid black;">
+        <g-layout style="height: 100vh;">
+            <g-sider>g-sider</g-sider>
+            <g-layout>
+                <g-header>header</g-header>
+                <g-content>content</g-content>
+                <g-footer>footer</g-footer>
+            </g-layout>
+        </g-layout>
+        <!-- <g-row>
+            <g-col span="23" offset="1" :narrow-pc="{span:12, offset:12}">
+                <div class="demo">
+                    
+                </div>
+            </g-col>
+        </g-row> -->
+        <!-- <div style="border: 1px solid black;">
             <g-row gutter="20">
-                <g-col>1</g-col>
-                <g-col>2</g-col>
-            </g-row>
-            <g-row gutter="20">
-                <g-col>1</g-col>
-                <g-col>2</g-col>
-                <g-col>3</g-col>
-            </g-row>
-            <g-row gutter="20">
-                <g-col>1</g-col>
-                <g-col>2</g-col>
-                <g-col>3</g-col>
-                <g-col>4</g-col>
-            </g-row>
-            <g-row gutter="20">
-                <g-col span="2">1</g-col>
-                <g-col span="20" offset="2">11</g-col>
+                <g-col 
+                    span="24" 
+                    :ipad="{span:8}"
+                    :narrow-pc="{span:4}"
+                    :pc="{span:2}"
+                    :wide-pc="{span:1}"
+                >
+                    1
+                </g-col>
+                <g-col 
+                    span="24" 
+                    :ipad="{span:16}"
+                    :narrow-pc="{span:20}"
+                    :pc="{span:22}"
+                    :wide-pc="{span:23}"
+                >
+                    11
+                </g-col>
             </g-row>
             <g-row gutter="20">
                 <g-col span="4">1</g-col>
@@ -84,8 +112,8 @@
                 <g-col span="4" offset="6">11</g-col>
                 <g-col span="8" offset="2">11</g-col>
             </g-row>
-        </div>
-        <hr>
+        </div> -->
+        <!-- <hr> -->
         <!-- <div class="box">
             <g-input value="张三" disabled></g-input>
             <g-input value="李四" readonly></g-input>

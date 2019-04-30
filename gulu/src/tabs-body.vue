@@ -6,7 +6,8 @@
 
 <script>
 export default {
-    name: 'GuluTabsBody'
+    name: 'GuluTabsBody',
+    inject: ['eventBus']
 }
 </script>
 

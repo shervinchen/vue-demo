@@ -20,6 +20,7 @@ import TabsPane from './tabs-pane'
 import Popover from './popover'
 import Collapse from './collapse'
 import CollapseItem from './collapse-item'
+import Cascader from './cascader'
 
 Vue.component('g-button', Button)
 Vue.component('g-icon', Icon)
@@ -41,13 +42,97 @@ Vue.component('g-tabs-pane', TabsPane)
 Vue.component('g-popover', Popover)
 Vue.component('g-collapse', Collapse)
 Vue.component('g-collapse-item', CollapseItem)
-
+Vue.component('g-cascader', Cascader)
 
 Vue.use(plugin)
 
 new Vue({
     el: '#app',
     data: {
+        source: [{
+            name: '浙江',
+            children: [{
+                    name: '杭州',
+                    children: [
+                        {
+                            name: '上城'
+                        },
+                        {
+                            name: '下城'
+                        },
+                        {
+                            name: '江干'
+                        }
+                    ]
+                },
+                {
+                    name: '嘉兴',
+                    children: [
+                        {
+                            name: '南湖'
+                        },
+                        {
+                            name: '秀洲'
+                        },
+                        {
+                            name: '嘉善'
+                        }
+                    ]
+                },
+                {
+                    name: '湖州'
+                }
+            ]
+        },
+        {
+            name: '福建',
+            children: [
+                {
+                    name: '福州',
+                    children: [
+                        {
+                            name: '鼓楼'
+                        },
+                        {
+                            name: '台江'
+                        },
+                        {
+                            name: '仓山'
+                        }
+                    ]
+                },
+                {
+                    name: '厦门'
+                },
+                {
+                    name: '莆田'
+                },
+                {
+                    name: '三明'
+                },
+                {
+                    name: '泉州'
+                }
+            ]
+        },{
+            name: '安徽',
+            children: [
+                {
+                    name: '合肥',
+                    children: [
+                        {
+                            name: '瑶海'
+                        },
+                        {
+                            name: '庐阳'
+                        }
+                    ]
+                },
+                {
+                    name: '芜湖'
+                }
+            ]
+        }],
         loading1: false,
         loading2: true,
         loading3: false,
@@ -55,14 +140,14 @@ new Vue({
         selectedTab: ['2', '1']
     },
     created() {
-    //     setTimeout(() => {
-    //         let event = new Event('change')
-    //         let inputElemnt = this.$el.querySelector('input')
-    //         inputElemnt.dispatchEvent(event)
-    //     }, 3000)
+        //     setTimeout(() => {
+        //         let event = new Event('change')
+        //         let inputElemnt = this.$el.querySelector('input')
+        //         inputElemnt.dispatchEvent(event)
+        //     }, 3000)
     },
     methods: {
-        yyy (data) {
+        yyy(data) {
             console.log(data)
         },
         // inputChange (e) {
@@ -101,7 +186,7 @@ new Vue({
 // const expect = chai.expect
 
 // try {
-    
+
 //     // 单元测试
 //     {
 //         // 测试按钮含有icon
@@ -109,7 +194,7 @@ new Vue({
 //         const vm = new Constructor({
 //             propsData: {
 //                 icon: 'settings',
-                
+
 //             }
 //         })
 //         vm.$mount()
@@ -143,7 +228,7 @@ new Vue({
 //         const vm = new Constructor({
 //             propsData: {
 //                 icon: 'settings',
-                
+
 //             }
 //         })
 //         vm.$mount(div)

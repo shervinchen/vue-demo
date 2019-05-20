@@ -1,5 +1,5 @@
 <template>
-  <div class="cascader-items" :style="{height: height}">
+  <div class="cascader-items" :style="{ height: height }">
     <div class="left">
       <div
         class="label"
@@ -7,18 +7,21 @@
         :key="index"
         @click="leftSelected = item"
       >
-        {{item.name}}
+        {{ item.name }}
         <icon class="icon" v-if="item.children" name="right"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <gulu-cascader-items :items="rightItems" :height="height"></gulu-cascader-items>
+      <gulu-cascader-items
+        :items="rightItems"
+        :height="height"
+      ></gulu-cascader-items>
     </div>
   </div>
 </template>
 
 <script>
-import Icon from './icon'
+import Icon from "./icon";
 
 export default {
   name: "GuluCascaderItems",
@@ -51,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'var';
+@import "var";
 .cascader-items {
   display: flex;
   align-items: flex-start;
@@ -59,19 +62,19 @@ export default {
   height: 100px;
   .left {
     height: 100%;
-    padding: .3em 0;
+    padding: 0.3em 0;
   }
   .right {
     height: 100%;
     border-left: 1px solid $border-color-light;
   }
   .label {
-    padding: .3em 1em;
+    padding: 0.3em 1em;
     display: flex;
     align-items: center;
     .icon {
       margin-left: 1em;
-      transform: scale(.5);
+      transform: scale(0.5);
     }
   }
 }

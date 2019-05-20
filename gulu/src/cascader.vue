@@ -53,9 +53,6 @@ export default {
             background: #fff;
             display: flex;
             @extend .box-shadow;
-            .label {
-                white-space: nowrap;
-            }
         }
     }
 </style>

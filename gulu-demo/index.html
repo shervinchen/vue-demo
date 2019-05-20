@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轱辘</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        html {
+            --button-height: 32px;
+            --font-size: 14px;
+            --line-height: 14px;
+            --button-bg: white;
+            --button-active-bg: #eee;
+            --border-radius: 4px;
+            --color: #333;
+            --border-color: #999;
+            --border-color-hover: #666;
+        }
+
+        body {
+            font-size: var(--font-size)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" style="padding: 100px">
+        <p>11111</p>
+        <g-cascader :source="source" popover-height="200px"></g-cascader>
+        <p>22222</p>
+        <!-- <g-collapse :selected.sync="selectedTab" single>
+            <g-collapse-item title="标题1" name="1">内容1</g-collapse-item>
+            <g-collapse-item title="标题2" name="2">内容2</g-collapse-item>
+            <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
+        </g-collapse>
+        {{selectedTab}} -->
+        <!-- <div style="overflow: hidden; padding: 150px 0 40px;">
+            <g-popover position="bottom">
+                <template slot="content" slot-scope="{close}">
+                    <div>文字</div>
+                    <div>popover<a href="http://qq.com">看新网</a>内容</div>
+                    <g-button @click="close">关闭</g-button>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+            <g-popover position="top">
+                <template slot="content">
+                    <div>popover内容<g-button>关闭</g-button></div>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+            <g-popover position="left">
+                <template slot="content">
+                    <div>popover内容</div>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+            <g-popover position="right">
+                <template slot="content">
+                    <div>popover<a href="http://qq.com">看新网</a>内容</div>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+        </div>
+        <div style="overflow: hidden; padding-bottom: 150px;">
+            <g-popover position="bottom" trigger="hover">
+                <template slot="content">
+                    <div>popover内容</div>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+            <g-popover position="top" trigger="hover">
+                <template slot="content">
+                    <div>popover内容</div>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+            <g-popover position="left" trigger="hover">
+                <template slot="content">
+                    <div>popover内容</div>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+            <g-popover position="right" trigger="hover">
+                <template slot="content">
+                    <div>popover内容</div>
+                </template>
+                <g-button>点我</g-button>
+            </g-popover>
+        </div> -->
+        <!-- selected="selectedTab" @update:selected="selectedTabs = $event" -->
+        <!-- <g-tabs :selected.sync="selectedTab" @update:selected="yyy">
+            <g-tabs-head>
+                <template slot="actions">
+                    <button>设置</button>
+                </template>
+                <g-tabs-item name="woman" disabled>
+                    <g-icon name="settings"></g-icon>美女
+                </g-tabs-item>
+                <g-tabs-item name="finance">
+                    财经
+                </g-tabs-item>
+                <g-tabs-item name="sports">
+                    体育
+                </g-tabs-item>
+            </g-tabs-head>
+            <g-tabs-body>
+                <g-tabs-pane name="woman">
+                    美女相关资讯
+                </g-tabs-pane>
+                <g-tabs-pane name="finance">
+                    财经相关资讯
+                </g-tabs-pane>
+                <g-tabs-pane name="sports">
+                    体育相关资讯
+                </g-tabs-pane>
+            </g-tabs-body>
+        </g-tabs> -->
+        <!-- <button @click="showToast1">top</button>
+        <button @click="showToast2">middle</button>
+        <button @click="showToast3">bottom</button> -->
+        <!-- <g-layout style="height: 100vh;">
+            <g-sider>g-sider</g-sider>
+            <g-layout>
+                <g-header>header</g-header>
+                <g-content>content</g-content>
+                <g-footer>footer</g-footer>
+            </g-layout>
+        </g-layout> -->
+        <!-- <g-row>
+            <g-col span="23" offset="1" :narrow-pc="{span:12, offset:12}">
+                <div class="demo">
+                    
+                </div>
+            </g-col>
+        </g-row> -->
+        <!-- <div style="border: 1px solid black;">
+            <g-row gutter="20">
+                <g-col 
+                    span="24" 
+                    :ipad="{span:8}"
+                    :narrow-pc="{span:4}"
+                    :pc="{span:2}"
+                    :wide-pc="{span:1}"
+                >
+                    1
+                </g-col>
+                <g-col 
+                    span="24" 
+                    :ipad="{span:16}"
+                    :narrow-pc="{span:20}"
+                    :pc="{span:22}"
+                    :wide-pc="{span:23}"
+                >
+                    11
+                </g-col>
+            </g-row>
+            <g-row gutter="20">
+                <g-col span="4">1</g-col>
+                <g-col span="20">11</g-col>
+            </g-row>
+            <g-row gutter="20">
+                <g-col span="4">1</g-col>
+                <g-col span="18" offset="2">11</g-col>
+            </g-row>
+            <g-row gutter="20">
+                <g-col span="4">1</g-col>
+                <g-col span="8" offset="2">11</g-col>
+                <g-col span="8" offset="2">11</g-col>
+            </g-row>
+            <g-row gutter="20">
+                <g-col span="4">1</g-col>
+                <g-col span="4" offset="6">11</g-col>
+                <g-col span="8" offset="2">11</g-col>
+            </g-row>
+        </div> -->
+        <!-- <hr> -->
+        <!-- <div class="box">
+            <g-input value="张三" disabled></g-input>
+            <g-input value="李四" readonly></g-input>
+            <g-input value="王五"></g-input>
+        </div> -->
+        <!-- <div class="box">
+            <g-input v-model="message"></g-input>
+            <p>{{message}}</p>
+            <button @click="message+=1">+1</button>
+        </div> -->
+        <!-- <div class="box">
+            <g-input value="王" error="姓名不能少于两个字"></g-input>
+        </div> -->
+        <!-- <div class="box">
+            <g-button :loading="loading1" @click="loading1 = !loading1">按钮</g-button>
+            <g-button icon="settings" :loading="loading2" @click="loading2 = !loading2">
+                按钮
+            </g-button>
+            <g-button icon="settings" icon-position="right" :loading="loading3" @click="loading3 = !loading3">按钮
+            </g-button>
+            <g-button-group>
+                <g-button icon="left">上一页</g-button>
+                <g-button>更多</g-button>
+                <g-button icon="right" icon-position="right">下一页</g-button>
+            </g-button-group>
+        </div> -->
+        <!-- <div id="test"></div> -->
+        <!-- <g-icon name="download"></g-icon> -->
+    </div>
+    <script src="./src/app.js"></script>
+    <!-- <script src="//at.alicdn.com/t/font_718972_1hhoomwpb69.js"></script> -->
+</body>
+
+</html>

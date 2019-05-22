@@ -5,16 +5,22 @@
         class="label"
         v-for="(item, index) in items"
         :key="index"
-        @click="leftSelected = item"
+        @click="onClickLabel(item)"
       >
-        {{ item.name }}
-        <icon class="icon" v-if="item.children" name="right"></icon>
+        <span class="name">
+          {{ item.name }}
+        </span>
+        <icon class="icon" v-if="rightArrowVisible(item)" name="right"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
       <gulu-cascader-items
+        :level="level + 1"
+        ref="right"
         :items="rightItems"
         :height="height"
+        :selected="selected"
+        @update:selected="onUpdateSelected"
       ></gulu-cascader-items>
     </div>
   </div>
@@ -34,20 +40,52 @@ export default {
     },
     height: {
       type: String
+    },
+    selected: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    },
+    level: {
+      type: Number,
+      default: 0
+    },
+    loadData: {
+      type: Function
     }
   },
   data() {
     return {
-      leftSelected: null
+      // leftSelected: null
     };
   },
   computed: {
     rightItems() {
-      if (this.leftSelected && this.leftSelected.children) {
-        return this.leftSelected.children;
-      } else {
-        return null;
+      if (this.selected[this.level]) {
+        let selected = this.items.filter(item => item.name === this.selected[this.level].name)
+        if (selected && selected[0].children && selected[0].children.length > 0) {
+          return selected[0].children
+        }
       }
+    }
+  },
+  mounted() {
+    // this.$refs.right
+  },
+  methods: {
+    rightArrowVisible(item) {
+      return this.loadData ? !item.isLeaf : item.children
+    },
+    onClickLabel(item) {
+      let copy = JSON.parse(JSON.stringify(this.selected));
+      copy[this.level] = item;
+      copy.splice(this.level + 1);
+      this.$emit("update:selected", copy);
+      // this.$set(this.selected, this.level, item)
+    },
+    onUpdateSelected(newSelected) {
+      this.$emit("update:selected", newSelected);
     }
   }
 };
@@ -63,17 +101,26 @@ export default {
   .left {
     height: 100%;
     padding: 0.3em 0;
+    overflow: auto;
   }
   .right {
     height: 100%;
     border-left: 1px solid $border-color-light;
   }
   .label {
-    padding: 0.3em 1em;
+    padding: 0.5em 1em;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      background: $grey;
+    }
+    > .name {
+      margin-right: 1em;
+      user-select: none;
+    }
     .icon {
-      margin-left: 1em;
+      margin-left: auto;
       transform: scale(0.5);
     }
   }

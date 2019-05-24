@@ -1,22 +1,27 @@
 <template>
   <div>
-    <p>11111</p>
     <div style="padding: 20px;">
       <g-cascader
         :load-data="loadData"
         :selected.sync="selected"
         :source.sync="source"
         popover-height="200px"
-        @update:source="onUpdateSource"
-        @update:selected="onUpdateSelected"
       ></g-cascader>
     </div>
+    <g-popover>
+      <template slot="content">
+        弹出内容
+      </template>
+      <g-button>点我</g-button>
+    </g-popover>
   </div>
 </template>
 
 <script>
 import Cascader from "./cascader";
 import db from "./db";
+import Popover from './popover'
+// import {removeListener} from './click-outside'
 
 // function ajax(parentId = 0, success, fail) {
 //   let id = setTimeout(() => {
@@ -38,7 +43,7 @@ function ajax(parentId = 0) {
         }
       });
       success(result);
-    }, 300);
+    }, 3000);
   });
 }
 // console.log(ajax());
@@ -46,7 +51,8 @@ function ajax(parentId = 0) {
 export default {
   name: "demo",
   components: {
-    "g-cascader": Cascader
+    "g-cascader": Cascader,
+    "g-popover": Popover
   },
   data() {
     return {
@@ -54,6 +60,9 @@ export default {
       source: []
     };
   },
+  // destroyed() {
+  //   removeListener()
+  // },
   created() {
     // ajax(0, result => {
     //   this.source = result;
@@ -166,9 +175,7 @@ export default {
         // lastLevelSelected.children = result;
         this.$set(lastLevelSelected, "children", result);
       });
-    },
-    onUpdateSource() {},
-    onUpdateSelected() {}
+    }
   }
 };
 </script>

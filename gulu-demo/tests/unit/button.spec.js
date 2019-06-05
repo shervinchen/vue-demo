@@ -6,7 +6,7 @@ import sinonChai from 'sinon-chai'
 import {
   shallowMount, mount
 } from "@vue/test-utils";
-import Button from "@/button.vue";
+import Button from "@/button/button.vue";
 chai.use(sinonChai)
 
 describe("Button.vue", () => {

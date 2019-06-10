@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../var";
+@import "../../styles/var";
 .g-button {
   font-size: $font-size;
   height: $button-height;

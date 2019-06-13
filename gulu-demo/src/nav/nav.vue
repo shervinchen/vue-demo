@@ -1,5 +1,5 @@
 <template>
-  <div class="g-nav">
+  <div class="g-nav" :class="{vertical}">
     <slot></slot>
   </div>
 </template>
@@ -9,22 +9,23 @@ export default {
   name: "GuluNav",
   provide() {
     return {
-      root: this
+      root: this,
+      vertical: this.vertical
     };
   },
   props: {
     selected: {
-      type: Array,
-      default: () => []
+      type: String,
     },
-    multiple: {
+    vertical: {
       type: Boolean,
       default: false
     }
   },
   data() {
     return {
-      items: []
+      items: [],
+      namePath: []
     };
   },
   mounted() {
@@ -32,7 +33,6 @@ export default {
     this.listenToChildren();
   },
   updated() {
-    console.log('update')
     this.updateChildren();
   },
   methods: {
@@ -41,7 +41,7 @@ export default {
     },
     updateChildren() {
       this.items.forEach(vm => {
-        if (this.selected.indexOf(vm.name) >= 0) {
+        if (this.selected === vm.name) {
           vm.selected = true;
         } else {
           vm.selected = false;
@@ -50,17 +50,8 @@ export default {
     },
     listenToChildren() {
       this.items.forEach(vm => {
-        console.log(vm)
-        vm.$on("add:selected", name => {
-          if (this.multiple) {
-            if (this.selected.indexOf(name) < 0) {
-              let copy = JSON.parse(JSON.stringify(this.selected));
-              copy.push(name);
-              this.$emit("update:selected", copy);
-            }
-          } else {
-            this.$emit("update:selected", [name]);
-          }
+        vm.$on("update:selected", name => {
+          this.$emit("update:selected", name);
         });
       });
     }
@@ -69,8 +60,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/var";
 .g-nav {
   display: flex;
-  border: 1px solid red;
+  border-bottom: 1px solid $grey;
+  color: $color;
+  cursor: default;
+  user-select: none;
+  &.vertical {
+    flex-direction: column;
+    border: 1px solid $grey;
+  }
 }
 </style>

@@ -1,10 +1,12 @@
-module.exports = function(config) {
+var webpackConfig = require('@vue/cli-service/webpack.config.js')
+
+module.exports = function (config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: "",
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ["mocha", "sinon-chai"],
+    frameworks: ["mocha"],
     client: {
       chai: {
         includeStack: true
@@ -12,19 +14,23 @@ module.exports = function(config) {
     },
 
     // list of files / patterns to load in the browser
-    files: ["dist/**/*.test.js", "dist/**/*.test.css"],
+    files: ['tests/**/*.spec.js'],
 
     // list of files / patterns to exclude
     exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {},
+    preprocessors: {
+      '**/*.spec.js': ['webpack', 'sourcemap']
+    },
+
+    webpack: webpackConfig,
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ["progress"],
+    reporters: ["spec"],
 
     // web server port
     port: 9876,
@@ -41,7 +47,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ["ChromeHeadless"],
+    // browsers: ["ChromeHeadless"],
+    browsers: ["Chrome"],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

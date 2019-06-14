@@ -2,6 +2,9 @@ module.exports = {
     base: '/vue-demo/gulu',
     title: '轱辘UI',
     description: '一个好用的UI框架',
+    scss:{
+        includePaths: [path.join(__dirname, '../../styles')]
+    },
     themeConfig: {
         nav: [{
                 text: '主页',

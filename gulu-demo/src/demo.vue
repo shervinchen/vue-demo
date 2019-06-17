@@ -1,22 +1,83 @@
 <template>
-  <div style="margin: 20px;">
-    <g-pager :total-page="20" :current-page="20"></g-pager>
+  <div style="padding: 100px;">
+    <div style="overflow: hidden; padding: 150px 0 40px;">
+      <g-popover position="bottom">
+        <template slot="content" slot-scope="{close}">
+          <div>文字</div>
+          <div>
+            popover
+            <a href="http://qq.com">看新网</a>内容
+          </div>
+          <g-button @click="close">关闭</g-button>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+      <g-popover position="top">
+        <template slot="content">
+          <div>
+            popover内容
+            <g-button>关闭</g-button>
+          </div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+      <g-popover position="left">
+        <template slot="content">
+          <div>popover内容</div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+      <g-popover position="right">
+        <template slot="content">
+          <div>
+            popover
+            <a href="http://qq.com">看新网</a>内容
+          </div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+    </div>
+    <div style="overflow: hidden; padding-bottom: 150px;">
+      <g-popover position="bottom" trigger="hover">
+        <template slot="content">
+          <div>popover内容</div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+      <g-popover position="top" trigger="hover">
+        <template slot="content">
+          <div>popover内容</div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+      <g-popover position="left" trigger="hover">
+        <template slot="content">
+          <div>popover内容</div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+      <g-popover position="right" trigger="hover">
+        <template slot="content">
+          <div>popover内容</div>
+        </template>
+        <g-button>点我</g-button>
+      </g-popover>
+    </div>
   </div>
 </template>
 
 <script>
-import GPager from './pager'
+import GPopover from './popover'
+import GButton from './button/button'
 
 export default {
   name: "demo",
   components: {
-    GPager,
+    GPopover
   },
   data() {
-    return {
-
-    };
-  },
+    return {};
+  }
 };
 </script>
 
@@ -46,5 +107,4 @@ export default {
 // body {
 //   font-size: var(--font-size);
 // }
-
 </style>

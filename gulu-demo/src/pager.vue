@@ -1,6 +1,6 @@
 <template>
-  <div class="gulu-pager">
-    <span class="gulu-pager-nav prev" :class="{disabled: currentPage === 1}">
+  <div class="gulu-pager" :class="{hide: hideIfOnePage && totalPage <= 1}">
+    <span class="gulu-pager-nav prev" @click="onClickPage(currentPage - 1)" :class="{disabled: currentPage === 1}">
       <g-icon name="left"></g-icon>
     </span>
     <template v-for="(page, index) in pages">
@@ -11,10 +11,10 @@
         <g-icon name="dots" :key="index" class="gulu-pager-separator"></g-icon>
       </template>
       <template v-else>
-        <span href="#" :key="index" class="gulu-pager-item other">{{page}}</span>
+        <span :key="index" class="gulu-pager-item other" @click="onClickPage(page)">{{page}}</span>
       </template>
     </template>
-    <span class="gulu-pager-nav next" :class="{disabled: currentPage === totalPage}">
+    <span class="gulu-pager-nav next" @click="onClickPage(currentPage + 1)" :class="{disabled: currentPage === totalPage}">
       <g-icon name="right"></g-icon>
     </span>
   </div>
@@ -42,30 +42,37 @@ export default {
       default: true
     }
   },
-  data() {
-    let pages = [
-      1,
-      this.totalPage,
-      this.currentPage,
-      this.currentPage - 1,
-      this.currentPage - 2,
-      this.currentPage + 1,
-      this.currentPage + 2
-    ];
-    let u = unique(pages.filter((n) => n >= 1 && n <= this.totalPage).sort((a, b) => a - b));
-    let u2 = u.reduce((prev, current, index, array) => {
-      prev.push(current);
-      if (
-        array[index + 1] !== undefined &&
-        array[index + 1] - array[index] > 1
-      ) {
-        prev.push("...");
+  computed: {
+    pages() {
+      let pages = [
+        1,
+        this.totalPage,
+        this.currentPage,
+        this.currentPage - 1,
+        this.currentPage - 2,
+        this.currentPage + 1,
+        this.currentPage + 2
+      ];
+      let u = unique(pages.filter((n) => n >= 1 && n <= this.totalPage).sort((a, b) => a - b));
+      let u2 = u.reduce((prev, current, index, array) => {
+        prev.push(current);
+        if (
+          array[index + 1] !== undefined &&
+          array[index + 1] - array[index] > 1
+        ) {
+          prev.push("...");
+        }
+        return prev;
+      }, []);
+      return u2
+    }
+  },
+  methods: {
+    onClickPage(n) {
+      if (n >= 1 && n <= this.totalPage) {
+        this.$emit('update:currentPage', n)
       }
-      return prev;
-    }, []);
-    return {
-      pages: u2
-    };
+    }
   }
 };
 
@@ -88,6 +95,10 @@ function unique(array) {
   $width: 20px;
   $height: 20px;
   $font-size: 12px;
+  user-select: none;
+  &.hide {
+    display: none;
+  }
   &-separator {
     width: $width;
     font-size: $font-size;
@@ -123,7 +134,9 @@ function unique(array) {
     border-radius: $border-radius;
     font-size: $font-size;
     margin: 0 4px;
+    cursor: pointer;
     &.disabled {
+      cursor: default;
       svg {
         fill: darken($grey, 30%);
       }

@@ -1,10 +1,16 @@
 <template>
   <div style="padding: 100px;">
-    
+    <g-button @click="onClickButton">上方弹出</g-button>
   </div>
 </template>
 
 <script>
+import plugin from "./plugin";
+import GButton from "./button/button";
+import Vue from "vue";
+
+Vue.use(plugin);
+
 export default {
   name: "demo",
   components: {},
@@ -12,7 +18,16 @@ export default {
     return {};
   },
   methods: {
-    
+    onClickButton() {
+      this.$toast("你知道我在等你吗？", {
+        closeButton: {
+          text: "知道了",
+          callback: () => {
+            console.log("他说知道了");
+          }
+        }
+      });
+    }
   }
 };
 </script>

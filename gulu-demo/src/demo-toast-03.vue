@@ -1,10 +1,16 @@
 <template>
   <div style="padding: 100px;">
-    
+    <g-button @click="onClickButton">上方弹出</g-button>
   </div>
 </template>
 
 <script>
+import plugin from "./plugin";
+import GButton from "./button/button";
+import Vue from "vue";
+
+Vue.use(plugin);
+
 export default {
   name: "demo",
   components: {},
@@ -12,7 +18,11 @@ export default {
     return {};
   },
   methods: {
-    
+    onClickButton () {
+      this.$toast('<strong style="color:red;">加粗的提示</strong>', {
+        enableHtml: true
+      })
+    }
   }
 };
 </script>

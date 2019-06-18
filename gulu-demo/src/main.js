@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Demo from "./demo.vue";
+import DemoPopover from "./demo-popover.vue";
 
 import Button from "./button/button";
 import Icon from "./icon";

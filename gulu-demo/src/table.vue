@@ -190,6 +190,9 @@ export default {
       if (this.expendField) {
         result += 1;
       }
+      if (this.$scopedSlots.default) {
+        result += 1;
+      }
       return result;
     }
   },

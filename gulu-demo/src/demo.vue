@@ -1,20 +1,21 @@
 <template>
   <div style="padding: 100px;">
-    
+    <g-upload accept="image/*" action="http://frank.com/upload" name="avatar" :fileList.sync="fileList">
+      <button>上传</button>
+      <div>只能上传 300kb 以内的 png/jpeg 文件</div>
+    </g-upload>
   </div>
 </template>
 
 <script>
-import GPager from './pager'
-
 export default {
   name: "demo",
   components: {
-    GPager,
+    
   },
   data() {
     return {
-      
+      fileList: []
     };
   },
   methods: {

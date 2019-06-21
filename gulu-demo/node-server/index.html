@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+</head>
+
+<body>
+    <form id="upload" action="http://127.0.0.1:3000/upload" method="post" enctype="multipart/form-data">
+        <div>
+            <input type="file" name="avatar">
+        </div>
+        <div>
+            <input type="submit" value="提交">
+        </div>
+    </form>
+    <img id="img" src="" alt="">
+</body>
+<script>
+    upload.addEventListener('submit', (e) => {
+        e.preventDefault()
+        var formData = new FormData()
+        var fileInput = document.querySelector('input[name="avatar"]')
+        formData.append('avatar', fileInput.files[0])
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', upload.action)
+        xhr.onload = function() {
+            img.src = 'http://127.0.0.1:3000/preview/'+ xhr.response
+        }
+        xhr.send(formData)
+    })
+</script>
+
+</html>

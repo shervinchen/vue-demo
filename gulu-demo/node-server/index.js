@@ -1,15 +1,17 @@
 const express = require('express')
 const multer = require('multer')
 const upload = multer({dest: 'uploads/'})
+const cors = require('cors')
 
 const app = express()
+
 
 app.get('/', (req, res) => {
     res.send('hello nodejs')
 })
 
-app.post('/upload', upload.single('avatar'), (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*')
+app.options('/upload', cors())
+app.post('/upload', cors(), upload.single('file'), (req, res) => {
     res.send(req.file.filename)
 })
 
@@ -24,7 +26,7 @@ app.post('/upload', upload.single('avatar'), (req, res) => {
 //     })
 // })
 
-app.get('/preview/:key', function (req, res, next) {
+app.get('/preview/:key', cors(), function (req, res, next) {
     var options = {
         root: __dirname,
         headers: {
@@ -41,4 +43,5 @@ app.get('/preview/:key', function (req, res, next) {
     })
 })
 
-app.listen(3000)
+var port = process.env.PORT || 3000
+app.listen(port)

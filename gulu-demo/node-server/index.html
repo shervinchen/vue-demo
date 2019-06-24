@@ -10,7 +10,7 @@
 <body>
     <form id="upload" action="http://127.0.0.1:3000/upload" method="post" enctype="multipart/form-data">
         <div>
-            <input type="file" name="avatar">
+            <input type="file" name="file">
         </div>
         <div>
             <input type="submit" value="提交">
@@ -22,8 +22,8 @@
     upload.addEventListener('submit', (e) => {
         e.preventDefault()
         var formData = new FormData()
-        var fileInput = document.querySelector('input[name="avatar"]')
-        formData.append('avatar', fileInput.files[0])
+        var fileInput = document.querySelector('input[name="file"]')
+        formData.append('file', fileInput.files[0])
         var xhr = new XMLHttpRequest()
         xhr.open('POST', upload.action)
         xhr.onload = function() {

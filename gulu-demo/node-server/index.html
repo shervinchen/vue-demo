@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form id="upload" action="http://127.0.0.1:3000/upload" method="post" enctype="multipart/form-data">
+    <form id="upload" action="https://gulu-node-server.herokuapp.com/upload" method="post" enctype="multipart/form-data">
         <div>
             <input type="file" name="file">
         </div>
@@ -27,7 +27,8 @@
         var xhr = new XMLHttpRequest()
         xhr.open('POST', upload.action)
         xhr.onload = function() {
-            img.src = 'http://127.0.0.1:3000/preview/'+ xhr.response
+            // img.src = 'http://127.0.0.1:3000/preview/'+ xhr.response
+            img.src = 'https://gulu-node-server.herokuapp.com/preview/'+ xhr.response
         }
         xhr.send(formData)
     })

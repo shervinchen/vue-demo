@@ -5,14 +5,16 @@ const cors = require('cors')
 
 const app = express()
 
-
 app.get('/', (req, res) => {
     res.send('hello nodejs')
 })
 
 app.options('/upload', cors())
 app.post('/upload', cors(), upload.single('file'), (req, res) => {
-    res.send(req.file.filename)
+    // res.set('Content-Type', 'text/event-stream')
+    let filename = req.file.filename
+    let object = {id: filename}
+    res.send(JSON.stringify(object))
 })
 
 // app.get('/preview/:key', (req, res) => {
@@ -44,4 +46,5 @@ app.get('/preview/:key', cors(), function (req, res, next) {
 })
 
 var port = process.env.PORT || 3000
+console.log(port)
 app.listen(port)

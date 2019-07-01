@@ -25,6 +25,7 @@
 
 <script>
 import GIcon from "./icon";
+import http from "@/http";
 
 export default {
   name: "GuluUploader",
@@ -52,8 +53,15 @@ export default {
       type: Array,
       default: () => []
     },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
     sizeLimit: {
-        type: Number
+      type: Number
+    },
+    accept: {
+      type: String
     }
   },
   data() {
@@ -65,15 +73,28 @@ export default {
     onClickUpload() {
       let input = this.createInput();
       input.addEventListener("change", () => {
-        this.uploadFile(input.files[0]);
+        // this.uploadFile(input.files[0]);
+        this.uploadFiles(input.files);
         input.remove();
       });
       input.click();
     },
+    // uploadFiles(files) {
+    //     let formData = new FormData()
+    //     for (let i = 0; i < files.length; i++) {
+    //         formData.append(this.name, files[i])
+    //     }
+
+    //     let xhr = new XMLHttpRequest()
+    //     xhr.open(this.method, this.action)
+    //     xhr.send(formData)
+    // },
     createInput() {
       this.$refs.temp.innerHTML = "";
       let input = document.createElement("input");
+      input.accept = this.accept;
       input.type = "file";
+      input.multiple = this.multiple;
       this.$refs.temp.appendChild(input);
       return input;
     },
@@ -86,7 +107,7 @@ export default {
         this.$emit("update:fileList", copy);
       }
     },
-    afterUploadFile(newName, url) {
+    afterUploadFiles(newName, url) {
       let file = this.fileList.filter(f => f.name === newName)[0];
       let index = this.fileList.indexOf(file);
       let fileCopy = JSON.parse(JSON.stringify(file));
@@ -95,26 +116,36 @@ export default {
       let fileListCopy = [...this.fileList];
       fileListCopy.splice(index, 1, fileCopy);
       this.$emit("update:fileList", fileListCopy);
+      this.$emit('uploaded')
     },
-    uploadFile(rawFile) {
-      let { name, size, type } = rawFile;
-      let newName = this.generateName(name);
-      if (!this.beforeUploadFile(rawFile, newName)) {
-        return
+    uploadFiles(rawFiles) {
+      let newNames = [];
+      for (let i = 0; i < rawFiles.length; i++) {
+        let rawFile = rawFiles[i];
+        let { name, size, type } = rawFile;
+        let newName = this.generateName(name);
+        newNames[i] = newName;
       }
-      let formData = new FormData();
-      formData.append(this.name, rawFile);
-      this.doUploadFile(
-        formData,
-        response => {
-          let url = this.parseResponse(response);
-          this.url = url;
-          this.afterUploadFile(newName, url);
-        },
-        xhr => {
-          this.uploadError(xhr, newName);
-        }
-      );
+      if (!this.beforeUploadFiles(rawFiles, newNames)) {
+        return;
+      }
+      for (let i = 0; i < rawFiles.length; i++) {
+        let rawFile = rawFiles[i];
+        let newName = newNames[i];
+        let formData = new FormData();
+        formData.append(this.name, rawFile);
+        this.doUploadFiles(
+          formData,
+          response => {
+            let url = this.parseResponse(response);
+            this.url = url;
+            this.afterUploadFiles(newName, url);
+          },
+          xhr => {
+            this.uploadError(xhr, newName);
+          }
+        );
+      }
     },
     uploadError(xhr, newName) {
       let file = this.fileList.filter(f => f.name === newName)[0];
@@ -140,29 +171,52 @@ export default {
       }
       return name;
     },
-    beforeUploadFile(rawFile, newName) {
-      let { size, type } = rawFile;
-      if (size > this.sizeLimit) {
-        this.$emit("error", "文件大于2MB");
-        return false
-      } else {
-        this.$emit("update:fileList", [
-          ...this.fileList,
-          { name: newName, type, size, status: "uploading" }
-        ]);
-        return true
+    beforeUploadFiles(rawFiles, newNames) {
+      rawFiles = Array.from(rawFiles);
+      let errors = [];
+      for (let i = 0; i < rawFiles.length; i++) {
+        let { size, type } = rawFiles[i];
+        if (size > this.sizeLimit) {
+          errors.push("文件大于2MB：" + rawFiles[i].name);
+        }
       }
+      if (errors.length > 0) {
+        // this.$emit("error", "文件大于2MB");
+        console.log(errors);
+        this.$emit("error", errors);
+        return false;
+      }
+      // this.$emit("update:fileList", [
+      //   ...this.fileList,
+      //   { name: newName, type, size, status: "uploading" }
+      // ]);
+      let x = rawFiles.map((rawFile, i) => {
+        let { type, size } = rawFile;
+        return {
+          name: newNames[i],
+          type,
+          size,
+          status: "uploading"
+        };
+      });
+      this.$emit("update:fileList", [...this.fileList, ...x]);
+      return true;
     },
-    doUploadFile(formData, success, fail) {
-      let xhr = new XMLHttpRequest();
-      xhr.open(this.method, this.action);
-      xhr.onload = () => {
-        success(xhr.response);
-      };
-      xhr.onerror = () => {
-        fail(xhr, xhr.status);
-      };
-      xhr.send(formData);
+    doUploadFiles(formData, success, fail) {
+      http[this.method.toLowerCase()](this.action, {
+        success,
+        fail,
+        data: formData
+      });
+      //   let xhr = new XMLHttpRequest();
+      //   xhr.open(this.method, this.action);
+      //   xhr.onload = () => {
+      //     success(xhr.response);
+      //   };
+      //   xhr.onerror = () => {
+      //     fail(xhr, xhr.status);
+      //   };
+      //   xhr.send(formData);
     }
   }
 };

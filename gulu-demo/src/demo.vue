@@ -1,18 +1,30 @@
 <template>
   <div style="padding: 100px;">
-    {{error}}
+    <template v-for="(error, index) in errors">
+      <div :key="index">{{error}}</div>
+    </template>
     <br>
     {{fileList}}
     <div>只能上传 300kb 以内的 png/jpeg 文件</div>
-    <g-uploader :size-limit="1024 * 1024" @error="error=$event" :file-list.sync="fileList" :parseResponse="parseResponse" accept="image/*" method="POST" action="http://127.0.0.1:3000/upload" name="file">
+    <g-uploader
+      :multiple="true"
+      :size-limit="1024 * 1024"
+      @error="errors=$event"
+      :file-list.sync="fileList"
+      :parseResponse="parseResponse"
+      accept="image/*"
+      method="POST"
+      action="http://127.0.0.1:3000/upload"
+      name="file"
+    >
       <g-button icon="upload">上传</g-button>
     </g-uploader>
   </div>
 </template>
 
 <script>
-import GUploader from './uploader'
-import GButton from './button/button'
+import GUploader from "./uploader";
+import GButton from "./button/button";
 
 export default {
   name: "demo",
@@ -23,18 +35,18 @@ export default {
   data() {
     return {
       fileList: [],
-      error: ''
+      errors: []
     };
   },
   methods: {
     parseResponse(response) {
-      let object = JSON.parse(response)
-      let url = `http://127.0.0.1:3000/preview/${object.id}`
-      return url
+      let object = JSON.parse(response);
+      let url = `http://127.0.0.1:3000/preview/${object.id}`;
+      return url;
     },
     alert(error) {
-      window.alert(error || '上传失败')
-    },
+      window.alert(error || "上传失败");
+    }
   }
 };
 </script>

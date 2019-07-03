@@ -1,11 +1,11 @@
 const path = require('path')
 
-// module.exports = {
-//    css: {
-//        loaderOptions: {
-//            sass: {
-//                incluldePath: [path.join(__dirname, 'src')]
-//            }
-//        }
-//    }
-// }
+module.exports = {
+    css: {
+        loaderOptions: {
+            sass: {
+                incluldePaths: [path.join(__dirname, 'styles')]
+            }
+        }
+    }
+}

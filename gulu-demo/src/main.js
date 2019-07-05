@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Demo from "./demo.vue";
 import DemoPopover from "./demo-popover.vue";
+import DemoCascader from './demo-cascader.vue'
+import DemoTable from './demo-table.vue'
 
 import Button from "./button/button";
 import Icon from "./icon";
@@ -52,5 +54,5 @@ Vue.use(plugin);
 Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(Demo)
+  render: h => h(DemoTable)
 }).$mount("#app");

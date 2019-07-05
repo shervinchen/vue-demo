@@ -2,26 +2,33 @@
   <div style="padding: 100px;">
     {{selected}}
     <div style="margin: 20px;">
-      <g-table checkable expend-field="description" :height="400" :loading="loading" :columns="columns" :data-source="dataSource" bordered :selected-items.sync="selected" :order-by.sync="orderBy" @update:orderBy="x">
+      <g-table checkable expend-field="description" :height="400" :loading="loading" :data-source="dataSource" bordered :selected-items.sync="selected" :order-by.sync="orderBy" @update:orderBy="x">
         <template slot-scope="xxx">
           <g-button @click="edit(xxx.item)">编辑</g-button>
           <g-button @click="view(xxx.item)">查看</g-button>
           <g-button>删除</g-button>
         </template>
+        <g-table-column text="姓名" field="name" :width="100">
+          <template slot-scope="props">
+            <a href="#">{{props.value}}</a>
+          </template>
+        </g-table-column>
+        <g-table-column text="分数" field="score"></g-table-column>
       </g-table>
     </div>
-    <div style="margin: 20px;">
+    <!-- <div style="margin: 20px;">
       <g-table :columns="columns" :data-source="dataSource" bordered compact :striped="false"></g-table>
     </div>
     <div style="margin: 20px;">
       <g-pager :total-page="10" :current-page.sync="currentPage"></g-pager>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import GPager from './pager'
 import GTable from './table'
+import GTableColumn from './table-column'
 import GButton from './button/button'
 import { mkdir } from 'fs';
 
@@ -30,24 +37,25 @@ export default {
   components: {
     GPager,
     GTable,
-    GButton
+    GButton,
+    GTableColumn
   },
   data() {
     return {
       currentPage: 1,
       selected: [],
       loading: false,
-      columns: [
-        {
-          text: '姓名',
-          field: 'name',
-          width: 100
-        },
-        {
-          text: '分数',
-          field: 'score'
-        }
-      ],
+      // columns: [
+      //   {
+      //     text: '姓名',
+      //     field: 'name',
+      //     width: 100
+      //   },
+      //   {
+      //     text: '分数',
+      //     field: 'score'
+      //   }
+      // ],
       orderBy: {
         score: 'desc'
       },

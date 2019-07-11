@@ -1,12 +1,12 @@
 <template>
   <button
-    class="g-button"
+    class="gulu-button"
     :class="{ [`icon-${iconPosition}`]: true }"
     @click="$emit('click')"
   >
     <g-icon class="icon" v-if="icon && !loading" :name="icon"></g-icon>
     <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-    <div class="g-button-content">
+    <div class="gulu-button-content">
       <slot></slot>
     </div>
   </button>
@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../styles/var";
-.g-button {
+.gulu-button {
   font-size: $font-size;
   height: $button-height;
   padding: 0 1em;
@@ -60,7 +60,7 @@ export default {
   &:focus {
     outline: none;
   }
-  > .g-button-content {
+  > .gulu-button-content {
     order: 2;
     // line-height: var(--line-height);
   }
@@ -69,7 +69,7 @@ export default {
     margin-right: 0.1em;
   }
   &.icon-right {
-    > .g-button-content {
+    > .gulu-button-content {
       order: 1;
     }
     > .icon {
@@ -80,6 +80,9 @@ export default {
   }
   .loading {
     @include spin;
+  }
+  & + & {
+    margin-left: 4px;
   }
 }
 </style>

@@ -2,8 +2,8 @@
   <div class="popover" ref="popover">
     <div
       ref="contentWrapper"
-      class="content-wrapper"
-      :class="{ [`position-${position}`]: true }"
+      class="gulu-popover-content-wrapper"
+      :class="{ [`position-${position}`]: true, popClassName }"
       v-if="visible"
     >
       <slot name="content" :close="close"></slot>
@@ -46,6 +46,12 @@ export default {
     }
   },
   props: {
+    popClassName: {
+      type: String
+    },
+    container: {
+      type: Element
+    },
     position: {
       type: String,
       default: "top",
@@ -87,7 +93,7 @@ export default {
     },
     positionContent() {
       const { contentWrapper, triggerWrapper } = this.$refs;
-      document.body.appendChild(contentWrapper);
+      (this.container || document.body).appendChild(contentWrapper);
       const {
         width,
         height,
@@ -135,6 +141,7 @@ export default {
     },
     open() {
       this.visible = true;
+      this.$emit('open')
       this.$nextTick(() => {
         this.positionContent();
         document.addEventListener("click", this.onClickDocument);
@@ -142,6 +149,7 @@ export default {
     },
     close() {
       this.visible = false;
+      this.$emit('close')
       document.removeEventListener("click", this.onClickDocument);
     },
     onClick(event) {
@@ -165,7 +173,7 @@ $border-radius: 4px;
   vertical-align: top;
   position: relative;
 }
-.content-wrapper {
+.gulu-popover-content-wrapper {
   position: absolute;
   border: 1px solid $border-color;
   border-radius: $border-radius;
@@ -173,7 +181,7 @@ $border-radius: 4px;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
   background: white;
   padding: 0.5em 1em;
-  max-width: 20em;
+  // max-width: 20em;
   word-break: break-all;
   &::before,
   &::after {

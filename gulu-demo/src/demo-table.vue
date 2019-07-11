@@ -2,15 +2,25 @@
   <div style="padding: 100px;">
     {{selected}}
     <div style="margin: 20px;">
-      <g-table checkable expend-field="description" :height="400" :loading="loading" :data-source="dataSource" bordered :selected-items.sync="selected" :order-by.sync="orderBy" @update:orderBy="x">
-        <template slot-scope="xxx">
+      <g-table
+        checkable
+        expend-field="description"
+        :height="400"
+        :loading="loading"
+        :data-source="dataSource"
+        bordered
+        :selected-items.sync="selected"
+        :order-by.sync="orderBy"
+        @update:orderBy="x"
+      >
+        <!-- <template slot-scope="xxx">
           <g-button @click="edit(xxx.item)">编辑</g-button>
           <g-button @click="view(xxx.item)">查看</g-button>
           <g-button>删除</g-button>
-        </template>
+        </template> -->
         <g-table-column text="姓名" field="name" :width="100">
           <template slot-scope="props">
-            <a href="#">{{props.value}}</a>
+            <a :href="`/users/${props.value}`">{{props.value}}</a>
           </template>
         </g-table-column>
         <g-table-column text="分数" field="score"></g-table-column>
@@ -21,16 +31,16 @@
     </div>
     <div style="margin: 20px;">
       <g-pager :total-page="10" :current-page.sync="currentPage"></g-pager>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
 <script>
-import GPager from './pager'
-import GTable from './table'
-import GTableColumn from './table-column'
-import GButton from './button/button'
-import { mkdir } from 'fs';
+import GPager from "./pager";
+import GTable from "./table";
+import GTableColumn from "./table-column";
+import GButton from "./button/button";
+import { mkdir } from "fs";
 
 export default {
   name: "demo",
@@ -57,120 +67,120 @@ export default {
       //   }
       // ],
       orderBy: {
-        score: 'desc'
+        score: "desc"
       },
       dataSource: [
         {
           id: 1,
-          name: '小花',
+          name: "小花",
           score: 100,
-          description: 'xxxx xxxx'
+          description: "xxxx xxxx"
         },
         {
           id: 2,
-          name: '小明',
+          name: "小明",
           score: 99,
-          description: 'yyyy yyyy'
+          description: "yyyy yyyy"
         },
         {
           id: 3,
-          name: '圆圆',
-          score: 67,
+          name: "圆圆",
+          score: 67
         },
         {
           id: 4,
-          name: '张三',
-          score: 58,
+          name: "张三",
+          score: 58
         },
         {
           id: 5,
-          name: '王五',
-          score: 43,
+          name: "王五",
+          score: 43
         },
         {
           id: 6,
-          name: '李四',
-          score: 62,
+          name: "李四",
+          score: 62
         },
         {
           id: 7,
-          name: '超人',
-          score: 77,
+          name: "超人",
+          score: 77
         },
         {
           id: 8,
-          name: '蝙蝠侠',
-          score: 88,
+          name: "蝙蝠侠",
+          score: 88
         },
         {
           id: 9,
-          name: '钢铁侠',
-          score: 95,
+          name: "钢铁侠",
+          score: 95
         },
         {
           id: 10,
-          name: '蜘蛛侠',
-          score: 86,
+          name: "蜘蛛侠",
+          score: 86
         },
         {
           id: 11,
-          name: '灭霸',
-          score: 54,
+          name: "灭霸",
+          score: 54
         },
         {
           id: 12,
-          name: '张三',
-          score: 92,
+          name: "张三",
+          score: 92
         },
         {
           id: 13,
-          name: '王五',
-          score: 84,
+          name: "王五",
+          score: 84
         },
         {
           id: 14,
-          name: '李四',
-          score: 93,
+          name: "李四",
+          score: 93
         },
         {
           id: 15,
-          name: '超人',
-          score: 48,
+          name: "超人",
+          score: 48
         },
         {
           id: 16,
-          name: '蝙蝠侠',
-          score: 76,
+          name: "蝙蝠侠",
+          score: 76
         },
         {
           id: 17,
-          name: '超杀女',
-          score: 84,
+          name: "超杀女",
+          score: 84
         },
         {
           id: 18,
-          name: '贝恩',
-          score: 93,
+          name: "贝恩",
+          score: 93
         },
         {
           id: 19,
-          name: '海王',
-          score: 48,
+          name: "海王",
+          score: 48
         },
         {
           id: 20,
-          name: '闪电侠',
-          score: 76,
+          name: "闪电侠",
+          score: 76
         }
       ]
     };
   },
   methods: {
     edit(item) {
-      alert(`开始编辑${item.id}`)
+      alert(`开始编辑${item.id}`);
     },
     view(item) {
-      alert(`开始查看${item.id}`)
+      alert(`开始查看${item.id}`);
     },
     x() {
       // ajax(url, orderBy) // /api/users?score='desc'
@@ -180,8 +190,8 @@ export default {
       // console.log('x')
       this.loading = true;
       setTimeout(() => {
-        this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
-        this.loading = false
+        this.dataSource = this.dataSource.sort((a, b) => a.score - b.score);
+        this.loading = false;
       }, 3000);
     }
   }
@@ -217,8 +227,8 @@ export default {
 </style>
 
 <style lang="scss">
-  .xxx {
-    height: 400px;
-    overflow: auto;
-  }
+.xxx {
+  height: 400px;
+  overflow: auto;
+}
 </style>

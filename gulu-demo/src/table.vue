@@ -11,7 +11,7 @@
                 type="checkbox"
                 @change="onChangeAllItems"
                 ref="allChecked"
-              >
+              />
             </th>
             <th :style="{width: '50px'}" v-if="numberVisible">#</th>
             <th :style="{width: column.width + 'px'}" v-for="column in columns" :key="column.field">
@@ -41,20 +41,16 @@
                   :checked="inSelectedItems(item)"
                   type="checkbox"
                   @change="onChangeItem(item, index, $event)"
-                >
+                />
               </td>
-              <td :style="{width: '50px'}" v-if="numberVisible">
-                {{index + 1}}
-              </td>
+              <td :style="{width: '50px'}" v-if="numberVisible">{{index + 1}}</td>
               <template v-for="column in columns">
                 <td :style="{width: column.width + 'px'}" :key="column.field">
                   <!-- {{column.render ? column.render({value: item[column.field]}) : item[column.field]}} -->
                   <template v-if="column.render">
                     <vnodes :vnodes="column.render({value: item[column.field]})"></vnodes>
                   </template>
-                  <template v-else>
-                    {{item[column.field]}}
-                  </template>
+                  <template v-else>{{item[column.field]}}</template>
                 </td>
               </template>
               <td v-if="$scopedSlots.default">
@@ -85,7 +81,7 @@ export default {
     GIcon,
     vnodes: {
       functional: true,
-      render: (h, ctx) => ctx.props.vnodes
+      render: (h, context) => context.props.vnodes
     }
   },
   data() {
@@ -147,14 +143,17 @@ export default {
   },
   mounted() {
     this.columns = this.$slots.default.map(node => {
-      let {text, field, width} = node.componentOptions.propsData
-      let render = node.data.scopedSlots && node.data.scopedSlots.default
+      let { text, field, width } = node.componentOptions.propsData;
+      let render = node.data.scopedSlots && node.data.scopedSlots.default;
       return {
-        text, field, width, render
-      }
-    })
-    let result = this.columns[0].render({value: '陈抒迪'})
-    console.log(result)
+        text,
+        field,
+        width,
+        render
+      };
+    });
+    let result = this.columns[0].render({ value: "陈抒迪" });
+    console.log(result);
 
     let table2 = this.$refs.table.cloneNode(false);
     this.table2 = table2;

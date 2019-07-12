@@ -1,18 +1,26 @@
 <template>
   <div style="padding: 100px;">
-    
+    <g-date-picker :value="today" @input="today = $event"></g-date-picker>
+    <!-- <g-date-range-picker :value="d" @input="d = $event" :scope="scope"></g-date-range-picker> -->
+    <p>其他内容</p>
   </div>
 </template>
 
 <script>
+import GDatePicker from './date-picker/date-picker'
+import GDateRangePicker from "./date-picker/date-range-picker";
+
 export default {
   name: "demo",
   components: {
-    
+    GDatePicker,
+    GDateRangePicker
   },
   data() {
     return {
-    
+      today: new Date(),
+      d: [],
+      scope: [new Date(1958, 1), new Date(2118, 5)]
     };
   },
   methods: {

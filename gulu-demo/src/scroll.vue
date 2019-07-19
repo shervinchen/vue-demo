@@ -147,6 +147,15 @@
         }
         return newValue
       },
+      // calculateScrollBarY (delta) {
+      //   let newValue = this.scrollBarY + delta.y
+      //   if (newValue < 0) {
+      //     newValue = 0
+      //   } else if (newValue > -this.parentHeight * -this.calculateContentYMax() / this.childHeight) {
+      //     newValue = -this.parentHeight * -this.calculateContentYMax() / this.childHeight
+      //   }
+      //   return newValue
+      // },
       onMouseUpScrollbar (e) {
         this.isScrolling = false
         if (!this.mouseIn) {

@@ -4,6 +4,8 @@ import DemoPopover from "./demo-popover.vue";
 import DemoCascader from './demo-cascader.vue'
 import DemoTable from './demo-table.vue'
 
+import DemoBar from './demos/demo-bar'
+
 import Button from "./button/button";
 import Icon from "./icon";
 import ButtonGroup from "./button/button-group";
@@ -54,5 +56,5 @@ Vue.use(plugin);
 Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(Demo)
+  render: h => h(DemoBar)
 }).$mount("#app");

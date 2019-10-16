@@ -65,6 +65,10 @@ export default {
       validator(value) {
         return ["click", "hover"].indexOf(value) >= 0;
       }
+    },
+    blur: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
@@ -144,13 +148,17 @@ export default {
       this.$emit('open')
       this.$nextTick(() => {
         this.positionContent();
-        document.addEventListener("click", this.onClickDocument);
+        if (this.blur) {
+          document.addEventListener("click", this.onClickDocument);
+        }
       });
     },
     close() {
       this.visible = false;
       this.$emit('close')
-      document.removeEventListener("click", this.onClickDocument);
+      if (this.blur) {
+        document.removeEventListener("click", this.onClickDocument);
+      }
     },
     onClick(event) {
       if (this.$refs.triggerWrapper.contains(event.target)) {

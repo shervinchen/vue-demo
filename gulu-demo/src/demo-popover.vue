@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 100px;">
     <div style="overflow: hidden; padding: 150px 0 40px;">
-      <g-popover position="bottom">
+      <g-popover :blur="false" position="bottom">
         <template slot="content" slot-scope="{close}">
           <div>文字</div>
           <div>

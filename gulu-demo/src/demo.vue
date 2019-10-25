@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <!-- <div class="parent" ref="parent">
-    <div class="child" ref="child">-->
+    <div class="child" ref="child"> -->
     <g-scroll style="width: 300px; height: 400px;">
       <p>1</p>
       <p>2</p>
@@ -105,7 +105,7 @@
       <p>100</p>
     </g-scroll>
     <!-- </div>
-    </div>-->
+    </div> -->
   </div>
 </template>
 

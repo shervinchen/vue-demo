@@ -56,5 +56,5 @@ Vue.use(plugin);
 Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(DemoPopover)
+  render: h => h(Demo)
 }).$mount("#app");
